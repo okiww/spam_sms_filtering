@@ -38,7 +38,7 @@
 |
 */
 
-$route['default_controller'] = "barang";
+$route['default_controller'] = "sms";
 $route['404_override'] = '';
 
 

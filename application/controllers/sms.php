@@ -10,7 +10,7 @@ class Sms extends CI_Controller {
     }
 
     public function index() {
-        // $data['title'] = 'CRUD CodeIgniter Studi Kasus Barang'; //judul title
+        $data['title'] = 'CRUD CodeIgniter Studi Kasus Barang'; //judul title
         $data['master_sms'] = $this->msms->getAllSms(); //query model semua barang
 
         $this->load->view('sms',$data);

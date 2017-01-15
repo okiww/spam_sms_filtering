@@ -16,13 +16,13 @@
                 </tr>
               </thead>
               <tbody>
-                <? if(empty($master_sms)){ ?>
+                <? if(empty($kamus)){ ?>
                   <tr>
                     <td colspan="6">Data tidak ditemukan</td>
                   </tr>
                   <? }else{
                     $no=0;
-                    foreach($master_sms as $row){ $no++;?>
+                    foreach($kamus as $row){ $no++;?>
                   <tr>
                     <td><?=$no?></td>
                     <td><?=$row->content?></td>

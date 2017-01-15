@@ -29,8 +29,8 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="<?=base_url()?>home"><i class="glyphicon glyphicon-home"></i> Home</a></li>
-            <<!-- li class="active"><a href="<?=base_url()?>barang"><i class="glyphicon glyphicon-th"></i> Barang</a></li> -->
+           <!--  <li><a href="<?=base_url()?>home"><i class="glyphicon glyphicon-home"></i> Home</a></li>
+            --> <<!-- li class="active"><a href="<?=base_url()?>barang"><i class="glyphicon glyphicon-th"></i> Barang</a></li> -->
             <li class="active"><a href="<?=base_url()?>sms">Spam SMS</a></li>
             <li><a href="<?=base_url()?>filter">FILTER</a></li>
             <li><a href="<?=base_url()?>kamus">KAMUS</a></li>

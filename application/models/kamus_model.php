@@ -25,18 +25,83 @@ class kamus_model extends CI_Model {
         }
     }
 
-    function filter() {
+    function filter_spam() {
+        $this->db->where('type', 'SPAM');
+        $this->db->delete('result'); 
         $this->db->from($this->tabel);
-        $data['filter'] = $this->db->get();
+        $data['filter'] = $this->db->get()->result();
+        $arr_kamus = [];
 
-        foreach ($data['filter'] as $value) {
-            $key = trim($value['content']);
-            $where = "content like '%$key%'";
-            $this->db->from('master_sms');
-            $this->db->where($where);
-
-            return $this->db->get()->result();
+        foreach ($data['filter'] as $value) {            
+            array_push($arr_kamus, $value->content);
         }
+
+        for ($i=0; $i < count($arr_kamus); $i++) { 
+            $a =  trim($arr_kamus[$i]);
+            $where = "content like '%$a%'";
+            $this->db->from($this->master_sms);
+            $this->db->where($where);
+            
+            $filter = $this->db->get();
+
+
+            foreach ($filter->result() as $val) {
+                $result = array(
+                    'id' => $val->id,
+                    'content' => $val->content,
+                    'type' => 'SPAM'
+                );
+                $query_string = $this->db->insert_string('result', $result);
+                $query_string = str_replace('INSERT INTO', 'INSERT IGNORE INTO', $query_string);
+
+                $req = $this->db->query($query_string);
+            }
+        }
+
+        $this->db->from('result');
+        $this->db->where('type','SPAM');
+        $query = $this->db->get();
+        
+        return $query->result();
+    }
+
+    function filter_ham() {
+        $this->db->where('type', 'HAM');
+        $this->db->delete('result'); 
+        $this->db->from($this->tabel);
+        $data['filter'] = $this->db->get()->result();
+        $arr_kamus = [];
+
+        foreach ($data['filter'] as $value) {            
+            array_push($arr_kamus, $value->content);
+        }
+
+        for ($i=0; $i < count($arr_kamus); $i++) { 
+            $a =  trim($arr_kamus[$i]);
+            $where = "content not like '%$a%'";
+            $this->db->from($this->master_sms);
+            $this->db->where($where);
+            
+            $filter = $this->db->get();
+
+            foreach ($filter->result() as $val) {
+                $result = array(
+                    'id' => $val->id,
+                    'content' => $val->content,
+                    'type' => 'HAM'
+                );
+                $query_string = $this->db->insert_string('result', $result);
+                $query_string = str_replace('INSERT INTO', 'INSERT IGNORE INTO', $query_string);
+
+                $req = $this->db->query($query_string);
+            }
+        }
+
+        $this->db->from('result');
+        $this->db->where('type','HAM');
+        $query = $this->db->get();
+        
+        return $query->result();
     }
 }
 ?>

@@ -12,32 +12,14 @@ class filter extends CI_Controller {
     }
 
     public function index() {
-        $data['filter'] = $this->kamus_model->filter();
-        $arr_kamus = [];
-        $this->load->view('filter',$data);
+        $data['title'] = 'CRUD CodeIgniter Studi Kasus Barang'; //judul title
+        $data['spam'] = $this->kamus_model->filter_spam();
+        $data['ham'] = $this->kamus_model->filter_ham();
+        // print_r($data['filter']);
+        $data['count_spam'] = count($data['spam']);
+        $data['count_ham'] = count($data['ham']);
 
-        // foreach ($data['filter'] as $value) {
-        //     array_push($arr_kamus, $value->content);
-        //     $key = trim($value->content);
-        //     $where = "content like '%$key%'";
-        //     $this->db->from($this->master_sms);
-        //     $this->db->where($where);
-
-        //     $filter = $this->db->get()->result();
-
-        //     print_r($filter);
-        // }
-
-        // print_r($data);
-        // $a =  trim($arr_kamus[0]);
-        // $where = "content like '%$a%'";
-        // $this->db->from($this->master_sms);
-        // $this->db->where($where);
-        
-            // $filter = $this->db->get();
-
-        // print_r($filter);
-        
+        $this->load->view('filter',$data); 
     }
 }
 

@@ -19,7 +19,7 @@ class Sms extends CI_Controller {
 	public function insert_sms()
 	{
         $spam = 'spam_sms.xlsx';
-        $ham = 'sms_ham.xlsx';
+        $ham = 'ham_sms.xlsx';
         //load the excel library
         $this->load->library('excel');
         //read file from path

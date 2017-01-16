@@ -7,7 +7,7 @@
         <div class="panel-heading"><b>Daftar Barang</b></div>
           <div class="panel-body">
             <p><?=$this->session->flashdata('pesan')?> </p>
-              <a href="<?=base_url()?>barang/form/add" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-plus"></i> Filter</a>
+              <a href="<?=base_url()?>filter" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-plus"></i> Filter</a>
             <table class="table table-striped">
               <thead>
                 <tr>

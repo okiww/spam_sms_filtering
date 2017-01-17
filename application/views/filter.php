@@ -4,7 +4,7 @@
 
       <!-- Main component for a primary marketing message or call to action -->
       <div class="panel panel-default">
-        <div class="panel-heading"><b>Result SPAM</b> <b class="pull-right">TOTAL : <?phpphp echo $count_spam ?></b></div>
+        <div class="panel-heading"><b>Result SPAM</b> <b class="pull-right">TOTAL : <?php echo $count_spam ?></b></div>
           <div class="panel-body">
             <p><?php $this->session->flashdata('pesan')?> </p>
             <table class="table table-striped">
@@ -34,7 +34,7 @@
       </div>
 
        <div class="panel panel-default">
-        <div class="panel-heading"><b>Result HAM</b> <b class="pull-right">TOTAL : <?phpphp echo $count_ham ?></b></div>
+        <div class="panel-heading"><b>Result HAM</b> <b class="pull-right">TOTAL : <?php echo $count_ham ?></b></div>
           <div class="panel-body">
             <p><?php=$this->session->flashdata('pesan')?> </p>
             <table class="table table-striped">

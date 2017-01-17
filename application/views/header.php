@@ -32,8 +32,12 @@
            <!--  <li><a href="<?=base_url()?>home"><i class="glyphicon glyphicon-home"></i> Home</a></li>
             --> <<!-- li class="active"><a href="<?=base_url()?>barang"><i class="glyphicon glyphicon-th"></i> Barang</a></li> -->
             <li class="active"><a href="<?=base_url()?>sms">Spam SMS</a></li>
-            <li><a href="<?=base_url()?>filter">FILTER</a></li>
+            <li><a href="<?=base_url()?>smspib">SPAM PREPROCESSING</a></li>
+            <li><a href="<?=base_url()?>filter">Result SPAM</a></li>
+            <li><a href="<?=base_url()?>filterpib">Result SPAM PREPROCESSING</a></li>
             <li><a href="<?=base_url()?>kamus">KAMUS</a></li>
+            
+
           </ul>
         </div><!--/.nav-collapse -->
       </div>

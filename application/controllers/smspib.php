@@ -1,59 +1,25 @@
-
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Sms extends CI_Controller {
-    var $tabel = 'master_sms';
+class Smspib extends CI_Controller {
+    var $tabel = 'master_sms_preprocessing';
 
     public function __construct() {
         parent::__construct();
-        $this->load->model('msms');
+        $this->load->model('msmspib');
         $this->load->helper('form','url');
-        $this->load->database();
-        $this->load->library('pagination');
     }
 
     public function index() {
-        //pagination settings
-        $config['base_url'] = "http://".$_SERVER['HTTP_HOST']."/ci_crud/sms/index";
-        $config['total_rows'] = $this->db->count_all('master_sms');
-        $config['per_page'] = "20";
-        $config["uri_segment"] = 3;
-        $choice = $config["total_rows"] / $config["per_page"];
-        $config["num_links"] = floor($choice);
-
-        //config for bootstrap pagination class integration
-        $config['full_tag_open'] = '<ul class="pagination">';
-        $config['full_tag_close'] = '</ul>';
-        $config['first_link'] = false;
-        $config['last_link'] = false;
-        $config['first_tag_open'] = '<li>';
-        $config['first_tag_close'] = '</li>';
-        $config['prev_link'] = '&laquo';
-        $config['prev_tag_open'] = '<li class="prev">';
-        $config['prev_tag_close'] = '</li>';
-        $config['next_link'] = '&raquo';
-        $config['next_tag_open'] = '<li>';
-        $config['next_tag_close'] = '</li>';
-        $config['last_tag_open'] = '<li>';
-        $config['last_tag_close'] = '</li>';
-        $config['cur_tag_open'] = '<li class="active"><a href="#">';
-        $config['cur_tag_close'] = '</a></li>';
-        $config['num_tag_open'] = '<li>';
-        $config['num_tag_close'] = '</li>';
-
-        $this->pagination->initialize($config);
-        $data['page'] = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
         $data['title'] = 'CRUD CodeIgniter Studi Kasus Barang'; //judul title
-        $data['master_sms'] = $this->msms->getAllSms($config["per_page"], $data['page']); //query model semua barang
-        $data['pagination'] = $this->pagination->create_links();
-
-        $this->load->view('sms',$data);
+        $data['smspib'] = $this->msmspib->getAllSms(); //query model semua barang
+        // $this->insert_sms();
+        $this->load->view('vsmspib',$data);
     }
 
-	public function insert_sms()
-	{
-        $spam = 'spam_sms.xlsx';
-        $ham = 'ham_sms.xlsx';
+    public function insert_sms()
+    {
+        $spam = 'Spam(preprocessing).xlsx';
+        $ham = 'ham(preprocessing).xlsx';
         //load the excel library
         $this->load->library('excel');
         //read file from path
@@ -64,7 +30,7 @@ class Sms extends CI_Controller {
         $collection_ham = $objHam->getActiveSheet()->getCellCollection();
         //extract to a PHP readable array format
       
-        $this->db->truncate('master_sms');
+        $this->db->truncate('master_sms_preprocessing');
         foreach ($collection_spam as $cell) {
             $column = $objSpam->getActiveSheet()->getCell($cell)->getColumn();
             $row = $objSpam->getActiveSheet()->getCell($cell)->getRow();
@@ -79,7 +45,7 @@ class Sms extends CI_Controller {
                 $data = array(
                     'content' => $arr_data[$row][$column]
                 );
-                $this->db->insert('master_sms', $data);
+                $this->db->insert('master_sms_preprocessing', $data);
             }
         }
         foreach ($collection_ham as $cell) {
@@ -96,7 +62,7 @@ class Sms extends CI_Controller {
                 $data = array(
                     'content' => $arr_data[$row][$column]
                 );
-                $this->db->insert('master_sms', $data);
+                $this->db->insert('master_sms_preprocessing', $data);
             }
         }
         $this->db->where("(content='SPAM' OR content='HAM')");
@@ -104,7 +70,7 @@ class Sms extends CI_Controller {
         //send the data in an array format
         $data['header'] = $header;
         $data['values'] = $arr_data;
-	}
+    }
 }
 
 /* End of file barang.php */

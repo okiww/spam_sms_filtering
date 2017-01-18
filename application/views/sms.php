@@ -1,26 +1,32 @@
-<? $this->load->view('header');?>
+<?php $this->load->view('header');?>
 
     <div class="container">
       <div class="panel panel-default">
         <div class="panel-heading"><b>MASTER SMS</b></div>
           <div class="panel-body">
-            <p><?=$this->session->flashdata('pesan')?> </p>
-              <a href="<?=base_url()?>filter" class="btn btn-sm btn-primary pull-right"><i class="glyphicon glyphicon-plus"></i> Filter</a>
-            <table class="table table-striped table-hover">
-                <thead class="thead-inverse">
-                    <tr>
-                        <th>#</th>
-                        <th>Content</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php for ($i = 0; $i < count($master_sms); ++$i) { ?>
-                    <tr>
-                        <td><?php echo ($page+$i+1); ?></td>
-                        <td><?php echo $master_sms[$i]->content; ?></td>
-                    </tr>
-                    <?php } ?>
-                </tbody>
+            <p><?php $this->session->flashdata('pesan')?> </p>
+              <a href="<?php base_url()?>filter" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-plus"></i> Filter</a>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Content</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php if(empty($master_sms)){ ?>
+                  <tr>
+                    <td colspan="6">Data tidak ditemukan</td>
+                  </tr>
+                  <?php }else{
+                    $no =0;
+                    foreach($master_sms as $row){ $no++;?>
+                  <tr>
+                    <td><?php echo $no?></td>
+                    <td><?php echo $row->content?></td>
+                  </tr>
+                <?php }}?>
+              </tbody>
             </table>
         </div>
         <div class="row">
@@ -32,4 +38,7 @@
 
     </div>
 
-<? $this->load->view('footer');?>
+
+    </div> <!-- /container -->
+<?php $this->load->view('footer');?>
+

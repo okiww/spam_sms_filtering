@@ -7,10 +7,9 @@ class kamus_model extends CI_Model {
         parent::__construct();
     }
 
-	function get() {
-        $this->db->from($this->tabel);
-        $query = $this->db->get();
-        
+	function get($limit, $start) {
+        $sql = 'select * from kamus order by id limit ' . $start . ', ' . $limit;
+        $query = $this->db->query($sql);
         return $query->result();
     }
 
@@ -26,9 +25,10 @@ class kamus_model extends CI_Model {
     }
 
     function filter_spam() {
-        $this->db->where('type', 'SPAM');
-        $this->db->delete('result'); 
+        // $this->db->where('type', 'SPAM');
+        $this->db->truncate('result'); 
         $this->db->from($this->tabel);
+
         $data['filter'] = $this->db->get()->result();
         $arr_kamus = [];
 
@@ -40,11 +40,9 @@ class kamus_model extends CI_Model {
             $a =  trim($arr_kamus[$i]);
             $where = "content like '%$a%'";
             $this->db->from($this->master_sms);
-            $this->db->where($where);
+            $this->db->like('content', $a); 
             
             $filter = $this->db->get();
-
-
             foreach ($filter->result() as $val) {
                 $result = array(
                     'id' => $val->id,
@@ -80,7 +78,7 @@ class kamus_model extends CI_Model {
             $a =  trim($arr_kamus[$i]);
             $where = "content not like '%$a%'";
             $this->db->from($this->master_sms);
-            $this->db->where($where);
+            $this->db->not_like('content', $a); 
             
             $filter = $this->db->get();
 

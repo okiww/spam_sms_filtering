@@ -7,10 +7,9 @@ class msmspib extends CI_Model {
         parent::__construct();
     }
 
-    function getAllSms() {
-        $this->db->from($this->tabel);
-        $query = $this->db->get();
-        
+    function getAllSms($limit, $start) {
+        $sql = 'select * from master_sms_preprocessing order by id limit ' . $start . ', ' . $limit;
+        $query = $this->db->query($sql);
         return $query->result();
     }
 }

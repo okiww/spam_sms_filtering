@@ -36,7 +36,7 @@
        <div class="panel panel-default">
         <div class="panel-heading"><b>Result HAM</b> <b class="pull-right">TOTAL : <?php echo $count_ham ?></b></div>
           <div class="panel-body">
-            <p><?php=$this->session->flashdata('pesan')?> </p>
+            <p><?php $this->session->flashdata('pesan')?> </p>
             <table class="table table-striped">
               <thead>
                 <tr>
